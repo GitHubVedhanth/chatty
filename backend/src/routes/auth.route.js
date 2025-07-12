@@ -5,13 +5,12 @@ import { protectRoute } from "../middlewares/auth.middleware.js";
 
 const authrouter = e.Router();
 
-const upload = multer({ dest: "uploads/" }); // learn more about it
-
+const upload = multer({ dest: "uploads/" }); 
 authrouter.post('/signup', signup);
 authrouter.post('/logout', logout);
 authrouter.post('/login', login);
 authrouter.post('/updateProfile',protectRoute,
-  upload.single('profilePic'), // MUST be here for file parsing
+  upload.single('profilePic'), 
   profileUpdate
 );
 
