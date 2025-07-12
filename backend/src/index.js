@@ -53,3 +53,8 @@ server.listen(port, () => {
   connet_db();
   console.log(`Server listening on port ${port}`);
 });
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+    console.log('Route:', r.route.path);
+  }
+});
