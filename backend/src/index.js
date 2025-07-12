@@ -1,9 +1,8 @@
-import express from "express";
-import path from "path";
 import dotenv from 'dotenv';
+import path from 'path';
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { app, server } from "./lib/socket.js";
+import { app, server } from "./lib/socket.js";  // ✅ USE THIS APP
 import { authrouter } from "./routes/auth.route.js";
 import messagerouter from "./routes/message.route.js";
 import { connet_db } from "./lib/db.js";
@@ -28,6 +27,7 @@ app.use('/auth', authrouter);
 app.use('/message', messagerouter);
 
 if (process.env.NODE_ENV === 'production') {
+  console.log("Serving static files...");
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
@@ -36,4 +36,5 @@ if (process.env.NODE_ENV === 'production') {
 
 server.listen(port, () => {
   connet_db();
+  console.log(`Server running on port ${port}`);
 });
