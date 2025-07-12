@@ -8,8 +8,8 @@ import {
 import multer from "multer";
 
 const upload = multer({ dest: "uploads/" }); // learn more about it
-try {
   const messagerouter = e.Router();
+try {
 
   messagerouter.get("/users", protectRoute, getUsersForSideBar);
   messagerouter.post(
