@@ -60,20 +60,22 @@ app.use((req, res) => {
 });
 
 console.log("✅ Dumping all registered routes:");
+if (app._router && app._router.stack) {
+  app._router.stack.forEach((middleware) => {
+    if (middleware.route) {
+      console.log(middleware.route.path);
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach((handler) => {
+        if (handler.route) {
+          console.log(handler.route.path);
+        }
+      });
+    }
+  });
+} else {
+  console.warn("⚠️  No routes mounted yet or `app._router` is undefined");
+}
 
-app._router.stack.forEach((middleware) => {
-  if (middleware.route) {
-    // Routes registered directly on the app
-    console.log(middleware.route.path);
-  } else if (middleware.name === 'router') {
-    // Routes added as router middleware
-    middleware.handle.stack.forEach((handler) => {
-      if (handler.route) {
-        console.log(handler.route.path);
-      }
-    });
-  }
-});
 
 server.listen(port, () => {
   connet_db();
