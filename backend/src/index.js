@@ -36,10 +36,21 @@ app.use('/message', messagerouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+
+  // catch anything that's not an API route and send back React's index.html
+  app.get(/.*/, (req, res) => {
+    res.sendFile(
+      path.join(__dirname, '../frontend/dist', 'index.html'),
+      err => {
+        if (err) {
+          console.error("❌ error sending index.html:", err);
+          res.status(500).end();
+        }
+      }
+    );
   });
 }
+
 app.get('/health', (req, res) => {
   res.status(200).json({ status: "ok" });
 });
