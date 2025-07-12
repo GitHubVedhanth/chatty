@@ -23,6 +23,10 @@ export const chattStore = create((set, get) => ({
   },
 
   getmessages: async (userId) => {
+    if (!userId) {
+    console.warn("⛔️ getmessages called with empty userId");
+    return;
+      }
     set({ ismessageloading: true });
     try {
       const messages_res = await axiosInstance.get(`/message/${userId}`);
@@ -35,6 +39,10 @@ export const chattStore = create((set, get) => ({
   },
 
   sendmessage: async ({ text, imageFile, receiverId }) => {
+    if (!receiverId) {
+    console.warn("⛔️ sendmessage called with empty receiverId");
+    return;
+  }
     try {
       const { messages } = get();
 
