@@ -15,9 +15,9 @@ messagerouter.post('/send/:id', protectRoute, upload.single('image'), (req, res,
   sendMessage(req, res, next);
 });
 
-messagerouter.get('/:id', protectRoute, (req, res, next) => {
+messagerouter.get('/user/:id', protectRoute, (req, res, next) => {
   if (!req.params.id) {
-    return res.status(400).json({ message: 'User ID is required' });
+    return res.status(400).json({ message: "User ID is required" });
   }
   getMessages(req, res, next);
 });

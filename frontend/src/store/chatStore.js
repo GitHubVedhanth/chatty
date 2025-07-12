@@ -29,7 +29,7 @@ export const chattStore = create((set, get) => ({
       }
     set({ ismessageloading: true });
     try {
-      const messages_res = await axiosInstance.get(`/message/${userId}`);
+      const messages_res = await axiosInstance.get(`/message/user/${userId}`);
       set({ messages: messages_res.data.messages });
     } catch (error) {
       toast.error(error.response?.data?.message || "Error fetching messages");

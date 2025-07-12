@@ -40,13 +40,14 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
   });
 }
-app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.originalUrl}`);
-  next();
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: "ok" });
 });
-app.use((req, res, next) => {
-  res.status(404).json({ message: 'Not found' });
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
 });
+
 
 server.listen(port, () => {
   connet_db();
