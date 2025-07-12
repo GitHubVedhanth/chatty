@@ -24,12 +24,13 @@ app.use('/auth',authrouter)
 app.use('/message',messagerouter)
 
 if(process.env.DEVELOPMENT === 'production'){
-    app.use(express.static(path.json(__dirname,"../frontend/dist")))
+    app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
     app.get('*',(req,res)=>{
-        res.sendFile(path.json(__dirname,"../frontend","dist","index.html"))
+        res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
     })
 }
+
 server.listen(port,()=>{
     connet_db()
 })
