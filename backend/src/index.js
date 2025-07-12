@@ -40,6 +40,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
   });
 }
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.originalUrl}`);
+  next();
+});
+
 
 server.listen(port, () => {
   connet_db();
